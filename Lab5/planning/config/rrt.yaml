@@ -1,0 +1,52 @@
+planner_node:
+  ros__parameters:
+
+    rrt:
+
+        # How far from the car to consider obstacles, further points are not added to the occupancy grid
+        max_grid_distance: 2.0 # in meters
+
+        # Size of a grid cell
+        grid_resolution: 0.05 # in meters
+
+        # Obstacle Inflation in occupancy grid cells
+        inflation_radius: 3
+
+        # Max Iterations of RRT before giving up
+        max_rrt_iters: 300
+
+        # Distance to place target point from 0, 0
+        lookahead_distance: 1.6 # in meters
+
+        # Max Value for steer between two nodes
+        max_expansion_distance: 0.5 # in meters
+
+        # Near search radius for a node in the RRT* tree
+        # Further nodes are ignored in the "near" function
+        search_radius: 0.5
+
+        # RRT Local Planner Goal Tolerance
+        goal_tolerance: 0.1 # in meters
+
+
+    controller:
+        enabled: True # This tells the controller to run. Set to False at first so you can manually test the rrt/occupancy grid
+        rate: 20
+        speed: 0.4 # The car will maintain this constant speed
+
+        distance_lookahead: 0.2
+        finish_threshold: 0.001 # For local planning we don't want the controller to finish
+        exceed_threshold: 4.0 # Don't bother printing exceed threshold either
+   
+        type: "s" # Which controller type to use, options are: "pid", "pp" for pure pursuit, or "s" for stanley
+   
+        pid:
+          kp: 1.0 # P gain
+          kd: 0.1 # D gain
+   
+        # pure pursuit does not have specific parameters, just tune distance_lookahead
+   
+        stanley:
+          ke: 1.2  # This tunes the aggressiveness to the cross-track error
+          kv: 0.01 # This is a smoothing parameter, it mostly just prevents a denominator from being 0
+

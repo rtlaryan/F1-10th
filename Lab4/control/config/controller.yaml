@@ -1,0 +1,21 @@
+control_node:
+  ros__parameters:
+    rate: 50 # Controller Frequency
+
+    speed: 0.4 # Target speed for the controller, there will be ramp up/down time at the ends of the path
+    min_speed: 0.1 # Values below this speed are rounded up
+    distance_lookahead: 0.4
+    finish_threshold: 0.1 # Distance to the final point that can be considered close enough to stop driving
+    exceed_threshold: 0.41 # Distance that is considered exceeding the error threshold. Must be larger than distance_lookahead
+ 
+    type: "pp" # Which controller type to use, options are: "pid", "pp" for pure pursuit, or "s" for stanley
+   
+    pid:
+      kp: 3.0 # P gain
+      kd: 0.2 # D gain
+
+    # pure pursuit doesn't have specific parameters, just tune distance_lookahead
+
+    stanley:
+      ke: 1.0  # This tunes the aggressiveness to the cross-track error
+      kv: 0.01 # This is a smoothing parameter, it mostly just prevents a denominator from being 0

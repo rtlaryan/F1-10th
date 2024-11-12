@@ -1,0 +1,27 @@
+particle_filter:
+  ros__parameters:
+    angle_step: 18 # Number of beams to skip per step when downsampling
+    max_particles: 4000 # Total number of particles
+    max_viz_particles: 4000 # Total number of particles published to pf/viz/particles
+    squash_factor: 2.2 # Particle weights are raised to the power of 1/squash_factor
+    max_range: 10.0 # Max lidar range to consider
+
+    publish_odom: True
+    viz: True
+
+    # Sensor model constants
+    z_short: 0.01 # Probability of seeing a shorter measurement than reality (either due to sensor noise or an unmapped object/person)
+    z_max: 0.07 # Probability of seeing a max distance lidar return
+    z_rand: 0.12 # Probability of seeing a completely random lidar return
+    z_hit: 0.75 # Probability of a measurement correctly detecting a known obstacle in the map
+    sigma_hit: 8.0 # The width of the z_hit gaussian
+
+    # Motion model constants
+    motion_dispersion_x: 0.05 # Noise in measurements of X distance
+    motion_dispersion_y: 0.025 # Noise in measurements of Y distance
+    motion_dispersion_theta: 0.025 # Noise in measurements of angle
+
+    # These are range_libc parameters, don't mess with them
+    theta_discretization: 112
+    range_method: "cddt"
+    rangelib_variant: 2
